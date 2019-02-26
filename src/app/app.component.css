@@ -1,0 +1,17 @@
+
+
+nav h1{
+  color: rgba(4, 150, 130, 0.61);
+  font-family: tahoma;
+}
+
+input {
+margin-top: 30%;
+}
+
+#mainPageMessages{
+  height: 50%;
+  background-color: azure;
+  overflow-y: auto;
+border-radius: 5px;
+}

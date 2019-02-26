@@ -12,7 +12,7 @@ import { parse } from 'url';
 export class AppComponent implements OnInit {
   constructor(private chat: ChatService) {}
   title = 'chatClient';
-
+  username = 'Tom';
   messegeContent: string;
   allMessages: string[] = [];
 
@@ -24,13 +24,17 @@ this.chat.getMessages()
  this.allMessages.push(message);
 
   });
-
-
   }
 
-  sendMessage() {
-    this.chat.sendMessage(this.messegeContent);
-    this.messegeContent = null;
+
+
+  sendMessage(event) {
+    if (event.key === 'Enter') {
+      this.chat.sendMessage(this.messegeContent);
+      this.messegeContent = null;
+
+    }
+
   }
 
 
