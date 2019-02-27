@@ -1,0 +1,16 @@
+
+
+
+<div class="container">
+  <h1>Register</h1>
+
+  <form (ngSubmit)="registerRequest(f)" #f=ngForm ngNativeValidate>
+
+    <input class="form-control" type="email"  ngModel name="email" placeholder="Email" required>
+    <input class="form-control" type="password"  ngModel name="password" placeholder="Password" required>
+
+    <hr>
+    <button class="btn btn-primary" type="submit">Register</button>
+  </form>
+
+</div>
