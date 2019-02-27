@@ -1,0 +1,22 @@
+#goToRegisterpage{
+  margin-top: 10%;
+}
+
+.container{
+  background-color: rgba(63, 190, 179, 0.356);
+  border-radius: 5px;
+  width: 30%;
+
+}
+
+h1{
+  text-align: center;
+  color: black;
+  font-family: tahoma;
+  font-size: 50px;
+}
+
+#loginbtn{
+  width: 100%;
+  font-size: 30px;
+}

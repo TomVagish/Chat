@@ -1,26 +1,28 @@
 
 
-nav h1{
-  color: rgba(4, 150, 130, 0.61);
-  font-family: tahoma;
-}
 
 #inputMessage{
-  margin-top: 60%;
+
+  margin-top: 10%;
 margin-bottom: 10%;
 }
 
 #mainPageMessages{
-  border-left: 2px solid black;
-  height: 70%;
-  width: 100%;
-background-color: aliceblue;
-  overflow-y: auto;
-border-radius: 10px;
+
+    height: 400px;
+    width: 100%;
+    background-color: rgb(243, 243, 243);
+    overflow-y: auto;
+    border-radius: 10px;
 }
 
 
 #messages{
   font-family: tahoma;
 
+}
+
+
+#chooseUsername{
+  margin: 0 5% 5% 0;
 }

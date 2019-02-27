@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './auth/register/register.component';
-import { Routes,RouterModule} from '@angular/router';
+import { Routes, RouterModule} from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './auth/login/login.component';
 

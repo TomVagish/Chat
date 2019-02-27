@@ -3,8 +3,6 @@ import { Observable } from 'rxjs/Observable';
 
 
 
-
-
 export class ChatService {
   private url = 'http://localhost:3000';
   private socket ;
@@ -12,6 +10,7 @@ export class ChatService {
   constructor() {
       this.socket = io(this.url);
   }
+
 
 
 

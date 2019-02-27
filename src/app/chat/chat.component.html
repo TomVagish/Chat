@@ -1,49 +1,88 @@
 
 
-<nav class="navbar navbar-light bg-light">
-    <h1><strong>Angular Chat</strong></h1>
-  </nav>
-
-  <hr>
-
-
-
 
   <div class="container">
 
-    <h1>Hey {{username}}</h1>
-    <hr>
 
     <div class="row">
-        <div class="col-md-4">
-            <h5>online users</h5>
-            <table>
-              <thead>
+      <div class="col-md-6">
 
-              </thead>
-            </table>
-          </div>
-
-      <div id="mainPageMessages" class="col-md-8">
-
-          <div *ngFor="let item of allMessages">
-            <h5 id="messages">: {{item}}</h5>
-             <hr>
+        <ng-template [ngIf]="!usernameFlag">
+            <label>choose a username</label>
+            <div class="input-group">
+                <input id="chooseUsername" [(ngModel)]="username" name="username"  class="form-control" type="text" placeholder="Choose user name">
+                <span>
+                    <button class="btn btn-success" (click)="saveUserName()">Save</button>
+                </span>
             </div>
-  <div>
-
-      <input id="inputMessage"  maxlength="100" (keydown)="sendMessage($event)"  class="form-control" [(ngModel)]="messegeContent" name="messegeContent" type="text" placeholder="write message here..">
-  </div>
+        </ng-template>
 
       </div>
 
+      <div class="col-md-6">
 
+      </div>
+    </div>
+
+
+    <ng-template [ngIf]="usernameFlag">
+        <h1>Hey {{username}}</h1>
+        <hr>
+
+    </ng-template>
+
+
+
+    <div class="row">
+
+
+      <div id="mainPageMessages" class="col-md-10">
+
+          <div *ngFor="let item of allMessages">
+              <table class="table">
+                  <thead>
+                    <p>{{username}}</p>
+                    <tr>
+                      <th scope="col">currentTime</th>
+                      <th scope="col">{{item}}</th>
+
+                    </tr>
+                  </thead>
+
+                </table>
+            <!-- <h5 id="messages">{{username}} : {{item}}</h5> -->
+
+            </div>
+
+      </div>
+
+      <div class="col-md-2">
+          <h5>online users</h5>
+          <table>
+            <thead>
+
+            </thead>
+          </table>
+        </div>
 
 
     </div>
 
+    <ng-template [ngIf]="usernameFlag">
+        <div class="row">
+            <div class="col-md-5">
+              <div>
 
-  </div>
+                    <input id="inputMessage"  maxlength="100" (keydown)="sendMessage($event)"  class="form-control" [(ngModel)]="messegeContent" name="messegeContent" type="text" placeholder="write message here..">
+
+            </div>
+          </div>
+
+
+        </div>
+      </ng-template>
+
+
 
   <hr>
 

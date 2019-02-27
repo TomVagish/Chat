@@ -8,9 +8,12 @@ import { ChatService } from '../chat.service';
   providers: [ChatService]
 })
 export class ChatComponent implements OnInit {
-  username = 'user';
+  username = 'Guest';
   messegeContent: string;
   allMessages: string[] = [];
+  usernameFlag = false;
+
+
 
   constructor(private chat: ChatService) { }
 
@@ -24,6 +27,10 @@ export class ChatComponent implements OnInit {
       });
       }
 
+
+      saveUserName() {
+        this.usernameFlag = true;
+      }
 
 
 
