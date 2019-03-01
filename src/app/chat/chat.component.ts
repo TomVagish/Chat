@@ -13,15 +13,18 @@ export class ChatComponent implements OnInit {
   username = 'Guest';
   messegeContent: string;
 
-  allMessages: Array<{user: string, message: string}> = [];
+  allMessages: Array<{user: string, message: string, date: string}> = [];
+  usertypingArray: Array<{user: string, message: string}>;
 
 
 
   usernameFlag = false;
+  userTypingflag = false;
 
 
   user: string;
   room: string;
+  time: string;
 
   constructor(private chat: ChatService) { }
 
@@ -31,11 +34,13 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 
 
+
+
+
       // listen to incoming message when new user joining
       this.chat.getjoinRoom()
       .subscribe((data) => {
-       this.allMessages.push(data);
-
+        this.allMessages.push(data);
 
       });
 
@@ -52,6 +57,13 @@ export class ChatComponent implements OnInit {
 
       });
 
+      this.chat.usertyping()
+      .subscribe((data) => {
+        this.usertypingArray = data.user;
+        this.userTypingflag = true;
+        console.log(this.usertypingArray);
+      });
+
       }
 
 
@@ -63,16 +75,33 @@ export class ChatComponent implements OnInit {
 
     // a function that send a message in chat
   sendMessage(event) {
+
+
     if (event.key === 'Enter') {
+      this.usertypingArray = null;
       this.chat.sendMessage({user: this.user, room: this.room, message: this.messegeContent});
       this.messegeContent = null;
 
     }
   }
 
+  getCurrentTime() {
+    const date = new Date();
+     const time = date.getHours() + ':' + date.getMinutes();
+     return time;
+  }
+
+
+
+  usertyping() {
+
+    this.chat.typing({user: this.user, room: this.room });
+  }
+
   // new user joining to room
   join() {
-     this.chat.joinRoom({user: this.user, room: this.room});
+    const time = this.getCurrentTime();
+     this.chat.joinRoom({user: this.user, room: this.room, date: time});
 
   }
   // user leaving room

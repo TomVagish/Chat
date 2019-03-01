@@ -22,12 +22,19 @@ public sendMessage(data) {
 }
 
 public joinRoom(data) {
-
   this.socket.emit('join', data);
 }
 
 public leaveRoom(data) {
 this.socket.emit('leave', data);
+}
+
+public typing(data){
+  this.socket.emit('typing', data);
+}
+
+public stoptyping(data){
+  this.socket.emit('stop-typing', data);
 }
 
 
@@ -51,6 +58,14 @@ public getjoinRoom = () => {
 public userLeave = () => {
   return Observable.create((observer) => {
       this.socket.on('new user leave', (data) => {
+          observer.next(data);
+      });
+  });
+}
+
+public usertyping = () => {
+  return Observable.create((observer) => {
+      this.socket.on('typing', (data) => {
           observer.next(data);
       });
   });

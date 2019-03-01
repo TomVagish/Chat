@@ -56,9 +56,11 @@
 
 
       <div id="mainPageMessages" class="col-md-10">
-          <div *ngFor="let item of allMessages">
-
-              <p><strong>{{item.user}} : </strong>{{item.message}}</p>
+          <div id="messageInChat" *ngFor="let item of allMessages">
+            <strong id="Username">{{item.user}} : </strong>
+              <p>{{item.message}}</p>
+              <p id="timeStamp">{{item.date}}</p>
+              <hr>
 
 
                </div>
@@ -72,13 +74,31 @@
 
 
     </div>
+    <ng-template [ngIf]="userTypingflag">
+        <div>
+            <h5><strong>{{usertypingArray}}</strong></h5>
+          </div>
+    </ng-template>
 
     <ng-template [ngIf]="usernameFlag">
         <div class="row">
+
+
             <div class="col-md-5">
               <div>
 
-                    <input id="inputMessage"  maxlength="100" (keydown)="sendMessage($event)"  class="form-control" [(ngModel)]="messegeContent" name="messegeContent" type="text" placeholder="write message here..">
+                    <input
+                    required
+                      id="inputMessage"
+                        maxlength="50"
+                         (keydown)="sendMessage($event)"
+                          (keypress)="usertyping($event)"
+                           class="form-control"
+                            [(ngModel)]="messegeContent"
+                             name="messegeContent"
+                              type="text"
+                               placeholder="write message here.."
+                               >
 
             </div>
           </div>
