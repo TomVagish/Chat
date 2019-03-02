@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-chat',
@@ -10,17 +12,16 @@ import { ChatService } from '../chat.service';
 export class ChatComponent implements OnInit {
 
 
-  username = 'Guest';
+
   messegeContent: string;
 
   allMessages: Array<{user: string, message: string, date: string}> = [];
+  onlineUsers: Array<{user: string, message: string, date: string}> = [];
   usertypingArray: Array<{user: string, message: string}>;
-
-
 
   usernameFlag = false;
   userTypingflag = false;
-
+  joinLeaveRoom = true;
 
   user: string;
   room: string;
@@ -33,41 +34,42 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
 
-
-
-
-
       // listen to incoming message when new user joining
       this.chat.getjoinRoom()
       .subscribe((data) => {
-        this.allMessages.push(data);
-
+        this.onlineUsers.push(data);
       });
 
       // listen to incoming message when user leaving
       this.chat.userLeave()
       .subscribe((data) => {
-        this.allMessages.push(data);
+       // this.onlineUsers.push(data);
+
+          console.log(this.onlineUsers);
+
       });
 
       // listen to incoming message in room
       this.chat.getMessages()
       .subscribe((message) => {
          this.allMessages.push(message);
-
       });
 
       this.chat.usertyping()
       .subscribe((data) => {
         this.usertypingArray = data.user;
         this.userTypingflag = true;
-        console.log(this.usertypingArray);
+          setTimeout(() => {
+            this.userTypingflag = false;
+
+          },2000)
       });
 
       }
 
 
-      saveUserName() {
+      saveUserName(form: NgForm) {
+      this.user = form.value.user;
         this.usernameFlag = true;
       }
 
@@ -79,20 +81,22 @@ export class ChatComponent implements OnInit {
 
     if (event.key === 'Enter') {
       this.usertypingArray = null;
-      this.chat.sendMessage({user: this.user, room: this.room, message: this.messegeContent});
+      const time = this.getCurrentTime();
+      this.chat.sendMessage({user: this.user, room: this.room, message: this.messegeContent, date: time});
       this.messegeContent = null;
 
     }
   }
 
+  // return the current time
   getCurrentTime() {
     const date = new Date();
-     const time = date.getHours() + ':' + date.getMinutes();
+     const time = date.getHours() + ':' + (date.getMinutes()<10?'0':'') + date.getMinutes();
      return time;
   }
 
 
-
+// user typing
   usertyping() {
 
     this.chat.typing({user: this.user, room: this.room });
@@ -100,13 +104,16 @@ export class ChatComponent implements OnInit {
 
   // new user joining to room
   join() {
+    this.joinLeaveRoom = false;
     const time = this.getCurrentTime();
      this.chat.joinRoom({user: this.user, room: this.room, date: time});
 
   }
   // user leaving room
   leave() {
-    this.chat.leaveRoom({user: this.user, room: this.room});
+    this.joinLeaveRoom = true;
+    const time = this.getCurrentTime();
+    this.chat.leaveRoom({user: this.user, room: this.room, date: time});
   }
 
 }

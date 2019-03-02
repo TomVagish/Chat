@@ -6,85 +6,138 @@
 
     <div class="row">
       <!-- choose a username here! -->
-      <div class="col-md-6">
+      <div class="col-md-3">
         <ng-template [ngIf]="!usernameFlag">
+            <form   (ngSubmit)="saveUserName(f)" #f="ngForm" ngNativeValidate>
             <label>choose a username</label>
             <div class="input-group">
-                <input
-                id="chooseUsername"
-                 [(ngModel)]="username"
-                  name="username"
-                   class="form-control"
-                    type="text"
-                    placeholder="Choose user name"
-                    [(ngModel)]="user">
-                <span>
-                    <button class="btn btn-success" (click)="saveUserName()">Save</button>
-                </span>
-            </div>
+
+                  <input
+                  required
+                  ngnativevalidate
+                  id="chooseUsername"
+                    name="user"
+                     class="form-control"
+                      type="text"
+                      [(ngModel)]="user">
+                      <span>
+                          <button type="submit" class="btn btn-success" >Save</button>
+                      </span>
+                    </div>
+              </form>
+
+
+
         </ng-template>
+
+
 
       </div>
 
       <!-- choose a room  -->
-      <div class="col-md-6">
-        <strong>Choose room</strong>
+      <div class="col-md-4">
+
+        <ng-template [ngIf]="joinLeaveRoom">
+            <label>choose room</label>
+
+            <div class="input-group">
+
+                    <select  [(ngModel)]="room" class="form-control">
+                        <option value="Lobby">Lobby</option>
+                        <option value="Room 1">Room 1</option>
+                        <option value="Room 2">Room 2</option>
+                      </select>
+
+                    <span>
+                        <button [disabled]="!usernameFlag" class="btn btn-info" (click)="join()">Join</button>
+                    </span>
 
 
-            <select  [(ngModel)]="room" class="form-control">
-                <option value="Lobby">Lobby</option>
-                <option value="Hall">Hall</option>
-                <option value="Deluxe">Deluxe</option>
-              </select>
+            </div>
 
-              <button class="btn btn-primary" (click)="join()">Join</button>
-              <button class="btn btn-danger" (click)="leave()">leave</button>
+        </ng-template>
+
+
+
+
 
       </div>
     </div>
 
 
-    <ng-template [ngIf]="usernameFlag">
-        <h1>Hey {{username}}</h1>
-        <hr>
 
-    </ng-template>
+    <div class="row">
+      <!-- wellcome user -->
+      <div class="col-md-4">
+          <ng-template [ngIf]="usernameFlag">
+              <h5 >wellcome <span id="heyUsernameTitle"> {{user}}</span></h5>
+          </ng-template>
+      </div>
+
+       <!-- join / leave rooms   -->
+      <div class="col-md-6">
+          <ng-template [ngIf]="!joinLeaveRoom">
+            <div class="input-group">
+                <p>You are available in : <strong>{{room}}</strong></p>
+                <span><button id="leaveRoomButton" class="btn btn-outline-dark" (click)="leave()">leave</button>
+                </span>
+            </div>
+
+            </ng-template>
+      </div>
+    </div>
+
 
 
 
     <div class="row">
 
-
+      <!-- main chat with all message -->
       <div id="mainPageMessages" class="col-md-10">
           <div id="messageInChat" *ngFor="let item of allMessages">
-            <strong id="Username">{{item.user}} : </strong>
-              <p>{{item.message}}</p>
-              <p id="timeStamp">{{item.date}}</p>
+            <span>
+            <strong id="UsernameInChat">{{item.user}} : </strong>
+            </span>
+            <span>
+                <p id="timeStamp">{{item.date}}</p>
+            </span>
+              <p id="messageInChat">{{item.message}}</p>
+
               <hr>
 
 
                </div>
       </div>
 
+       <!-- div with all online users -->
       <div class="col-md-2">
-          <h5>online users</h5>
+          <h5 id="onlineUsersHeader">online users</h5>
+          <div class="input-group" *ngFor="let item of onlineUsers">
 
+            <table>
+              <thead>
+                <tr>
+                  <td id="dot"></td>
+                  <td >{{item.user}}</td>
+                  <!-- <td >{{item.date}}</td> -->
+                </tr>
+              </thead>
+            </table>
+            <!-- <span ></span>
+            <span><p></p></span>
+            <span><p></p></span> -->
+          </div>
 
         </div>
 
 
     </div>
-    <ng-template [ngIf]="userTypingflag">
-        <div>
-            <h5><strong>{{usertypingArray}}</strong></h5>
-          </div>
-    </ng-template>
-
-    <ng-template [ngIf]="usernameFlag">
-        <div class="row">
 
 
-            <div class="col-md-5">
+    <div class="row">
+      <div class="col-md-6">
+
+          <ng-template [ngIf]="!joinLeaveRoom">
               <div>
 
                     <input
@@ -101,11 +154,21 @@
                                >
 
             </div>
-          </div>
-
-
-        </div>
       </ng-template>
+
+      </div>
+      <div class="col-md-6">
+          <ng-template [ngIf]="userTypingflag">
+              <div>
+                  <p><strong>{{usertypingArray}} is typing..</strong></p>
+                </div>
+          </ng-template>
+
+      </div>
+    </div>
+
+
+
 
 
 
