@@ -9,8 +9,9 @@ import { Routes, RouterModule} from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { enableProdMode } from '@angular/core';
 
-
+enableProdMode();
 const appRoutes: Routes = [
   {
       path: '',

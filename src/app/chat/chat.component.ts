@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ChatService} from '../chat.service';
 import {NgForm} from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({selector: 'app-chat',
  templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
-   providers: [ChatService]})
+   providers: [ChatService, AuthService]})
 
 export class ChatComponent implements OnInit {
 
@@ -34,9 +35,10 @@ export class ChatComponent implements OnInit {
     room: string;
     time: string;
 
-    constructor(private chat: ChatService) {}
+    constructor(private chat: ChatService, private auth: AuthService) {}
 
     ngOnInit() {
+
 
         // listen to incoming message when new user joining
         this
@@ -136,6 +138,15 @@ export class ChatComponent implements OnInit {
         this
             .chat
             .leaveRoom({user: this.user, room: this.room, date: time});
+    }
+
+
+    tokenn() {
+
+      const tok =  this.auth.getToken();
+      console.log(tok);
+
+
     }
 
 }
