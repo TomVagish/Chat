@@ -13,9 +13,6 @@ export class ChatService {
 
 
 
-
-
-
 // 3 functions that  handling all request from client,and send it to server!
 public sendMessage(data) {
   this.socket.emit('new-message', data);
@@ -29,11 +26,11 @@ public leaveRoom(data) {
 this.socket.emit('leave', data);
 }
 
-public typing(data){
+public typing(data) {
   this.socket.emit('typing', data);
 }
 
-public stoptyping(data){
+public stoptyping(data) {
   this.socket.emit('stop-typing', data);
 }
 

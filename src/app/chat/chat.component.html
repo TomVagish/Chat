@@ -123,9 +123,7 @@
                 </tr>
               </thead>
             </table>
-            <!-- <span ></span>
-            <span><p></p></span>
-            <span><p></p></span> -->
+
           </div>
 
         </div>
@@ -137,11 +135,11 @@
     <div class="row">
       <div class="col-md-6">
 
+        <!-- if statment when user join to some room. input text for messages open! -->
           <ng-template [ngIf]="!joinLeaveRoom">
               <div>
 
                     <input
-                    required
                       id="inputMessage"
                         maxlength="50"
                          (keydown)="sendMessage($event)"
@@ -157,10 +155,10 @@
       </ng-template>
 
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
           <ng-template [ngIf]="userTypingflag">
               <div>
-                  <p><strong>{{usertypingArray}} is typing..</strong></p>
+                  <p id="userTypingHere"><strong>{{usertypingArray}} is typing..</strong></p>
                 </div>
           </ng-template>
 

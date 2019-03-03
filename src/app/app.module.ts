@@ -8,6 +8,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { Routes, RouterModule} from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './auth/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 const appRoutes: Routes = [
   {
@@ -31,7 +33,9 @@ const appRoutes: Routes = [
     LoginComponent
   ],
   imports: [
+
     NgbModule,
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
