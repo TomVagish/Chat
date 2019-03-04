@@ -11,11 +11,12 @@ import { AuthService } from 'src/app/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router,private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService) { }
 
-  private token: string;
 
   ngOnInit() {
+
+
   }
 
 
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
         Password: password
     };
     this.auth.login(user);
+
 
 
   }

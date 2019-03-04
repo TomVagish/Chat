@@ -9,9 +9,11 @@ import { Routes, RouterModule} from '@angular/router';
 import { ChatComponent } from './chat/chat.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { enableProdMode } from '@angular/core';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './auth.service';
 
-enableProdMode();
+
+
 const appRoutes: Routes = [
   {
       path: '',
@@ -23,7 +25,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'chat',
-    component: ChatComponent
+    component: ChatComponent, canActivate: [AuthGuard]
   }
 ];
 @NgModule({
@@ -42,7 +44,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

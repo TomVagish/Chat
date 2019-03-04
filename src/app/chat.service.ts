@@ -69,4 +69,12 @@ public usertyping = () => {
   });
 }
 
+public userstoptyping = () => {
+  return Observable.create((observer) => {
+      this.socket.on('stop-typing', (data) => {
+          observer.next(data);
+      });
+  });
+}
+
 }
