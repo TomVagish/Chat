@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,7 +11,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth.service';
-
 
 
 const appRoutes: Routes = [
@@ -44,7 +43,7 @@ const appRoutes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

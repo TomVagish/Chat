@@ -9,7 +9,9 @@ export class AuthService {
 private token: string;
 private isAuthenticated = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
     getToken() {
     return  this.token;
@@ -18,7 +20,7 @@ private isAuthenticated = false;
 
 
   IsAuthenticated() {
-    return this.isAuthenticated;
+    return JSON.parse(localStorage.getItem("LoggedInUser"));
   }
 
   setToken(setToken: string){
@@ -40,12 +42,17 @@ private isAuthenticated = false;
    this.token = token;
    if(token){
     this.isAuthenticated = true;
+    localStorage.setItem("LoggedInUser",JSON.stringify(this.isAuthenticated));
     this.router.navigate(['/chat']);
    }
 
 
  });
 
+}
+logout() {
+  localStorage.removeItem("LoggedInUser");
+  this.router.navigate(["/"]);
 }
 
 }

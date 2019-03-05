@@ -15,11 +15,11 @@ export class AuthGuard implements CanActivate {
 
     const isAuth = this.authService.IsAuthenticated();
     console.log(isAuth);
-    if(!isAuth){
-      this.router.navigate(['/chat']);
+    if(isAuth){
+      return true;
     }
     this.router.navigate(['/']);
-    return isAuth;
+    // return false;
     // navigate to login page
 
     // you can save redirect url so after authing we can move them back to the page they requested

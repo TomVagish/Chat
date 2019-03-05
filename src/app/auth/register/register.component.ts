@@ -13,7 +13,12 @@ export class RegisterComponent implements OnInit {
 
     constructor(private router: Router, private auth: AuthService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+
+    if(this.auth.IsAuthenticated()){
+      this.router.navigate(['/chat'])
+    }
+    }
 
     registerRequest(form: NgForm) {
 
