@@ -1,5 +1,14 @@
 
 
+<nav class="navbar navbar-dark bg-dark">
+  <img id="imgInNavbar" src="https://bootcamp.geekshubsacademy.com/wp-content/uploads/2018/06/mean-stack-1.png" alt="">
+  <h1 id="mainHeaderInNavbar"><strong>Mean Chat</strong></h1>
+  <ng-template [ngIf]="showHideLogoutButton">
+    <p placement="left" ngbTooltip="click to log out" id="logOutButton" (click)="logout()"><strong>Log out</strong></p>
+  </ng-template>
+</nav>
+
+<hr>
 
   <div class="container">
 
@@ -49,7 +58,7 @@
                       </select>
 
                     <span>
-                        <button [disabled]="!usernameFlag" class="btn btn-info" (click)="join()">Join</button>
+                        <button placement="right" ngbTooltip="press to join to room" [disabled]="!usernameFlag" class="btn btn-info" (click)="join()">Join</button>
                     </span>
 
 
@@ -79,7 +88,7 @@
           <ng-template [ngIf]="!joinLeaveRoom">
             <div class="input-group">
                 <p>You are available in : <strong>{{room}}</strong></p>
-                <span><button id="leaveRoomButton" class="btn btn-outline-dark" (click)="leave()">leave</button>
+                <span><button placement="right" ngbTooltip="press to leave this room" id="leaveRoomButton" class="btn btn-outline-dark" (click)="leave()">leave</button>
                 </span>
             </div>
 
@@ -101,7 +110,7 @@
             <span>
                 <p id="timeStamp">{{item.date}}</p>
             </span>
-              <p id="messageInChat">{{item.message}}</p>
+              <p >{{item.message}}</p>
 
               <hr>
 

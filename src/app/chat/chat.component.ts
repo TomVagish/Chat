@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ChatService } from "../chat.service";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../auth.service";
@@ -35,10 +35,18 @@ export class ChatComponent implements OnInit {
   room: string;
   time: string;
 
+  @ViewChild('mainPageMessages')  myScrollContainer: any;
+
   constructor(private chat: ChatService, private auth: AuthService) {}
+  showHideLogoutButton: boolean;
 
   ngOnInit() {
 
+    if (this.auth.IsAuthenticated()) {
+      this.showHideLogoutButton = true;
+    } else {
+      this.showHideLogoutButton = false;
+    }
 
 
 
@@ -104,6 +112,9 @@ export class ChatComponent implements OnInit {
       this.messegeContent = null;
 
       // stop typing after send message this.chat.stoptyping({user: this.user});
+
+      this.myScrollContainer.scrollToBottom(300);
+
     }
   }
 
@@ -146,5 +157,11 @@ export class ChatComponent implements OnInit {
     this.chat.leaveRoom({ user: this.user, room: this.room, date: time });
   }
 
+
+  logout() {
+    this.auth.logout();
+    this.showHideLogoutButton = false;
+
+  }
 
 }

@@ -24,17 +24,16 @@ export class RegisterComponent implements OnInit {
 
         const email = form.value.email;
         const password = form.value.password;
+        const username = form.value.username;
 
         const user = {
             Email: email,
-            Password: password
+            Password: password,
+            Username: username
         };
         this
             .auth
-            .register(user)
-            .subscribe((res) => {
-              console.log(res);
-            });
+            .register(user);
 
 
     }

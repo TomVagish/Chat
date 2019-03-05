@@ -1,18 +1,4 @@
 
 
 
-nav h1{
-color: rgba(41, 150, 141, 0.664);
-  font-family: tahoma;
 
-}
-
-#logOutButton{
-  color: rgba(41, 150, 141, 0.664);
-  font-family: tahoma;
-  transition:  all;
-}
-
-#logOutButton:hover{
-cursor: pointer;
-}

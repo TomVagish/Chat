@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 
 
@@ -9,15 +9,17 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 
 })
-export class AppComponent  {
+export class AppComponent implements OnInit  {
   constructor(private auth: AuthService) {}
   title = 'chatClient';
 
 
+  ngOnInit() {
 
-  logout(){
-    this.auth.logout();
+
   }
+
+
 
 
 

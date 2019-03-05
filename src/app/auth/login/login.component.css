@@ -1,12 +1,16 @@
-#goToRegisterpage{
-  margin-top: 10%;
-}
+
 
 .container{
+  margin-top: 5%;
   background-color: rgba(63, 190, 179, 0.356);
   border-radius: 5px;
   width: 30%;
-
+}
+.container-fluid{
+  width: 20%;
+}
+img{
+  width: 100%;
 }
 
 h1{
@@ -20,3 +24,5 @@ h1{
   width: 100%;
   font-size: 30px;
 }
+
+

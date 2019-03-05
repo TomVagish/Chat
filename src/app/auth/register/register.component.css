@@ -1,9 +1,15 @@
-#goToLoginpage{
-  margin-top: 10%;
+
+
+.container-fluid{
+  width: 30%;
+  height: 5%;
+}
+img{
+  width: 100%;
 }
 
-
 .container{
+  margin-top: 1%;
   background-color: rgba(63, 190, 179, 0.356);
   border-radius: 5px;
   width: 30%;

@@ -1,5 +1,29 @@
 
+#logOutButton{
+  color: whitesmoke;
+  font-family: tahoma;
+  transition:  all;
+}
+#imgInNavbar{
+  width: 5%;
 
+}
+
+#logOutButton:hover{
+cursor: pointer;
+}
+
+#mainHeaderInNavbar{
+  color: whitesmoke;
+}
+
+
+#mainHeaderApp{
+  color: rgba(41, 150, 141, 0.664);
+    font-family: tahoma;
+    font-size: 50px;
+
+  }
 
 #inputMessage{
 
@@ -11,8 +35,9 @@ margin-bottom: 10%;
     height: 400px;
     width: 100%;
     background-color: rgb(243, 243, 243);
-    overflow-y: auto;
+    overflow-y: scroll;
     border-radius: 10px;
+    margin: 0;
 }
 
 

@@ -23,13 +23,17 @@ private isAuthenticated = false;
     return JSON.parse(localStorage.getItem("LoggedInUser"));
   }
 
+
   setToken(setToken: string){
     this.token = setToken;
   }
 
    // register request to server with user details!
    register(user: any) {
-      return this.http.post('http://localhost:3000/users/register', user);
+      return this.http.post('http://localhost:3000/users/register', user)
+      .subscribe(res =>{
+        this.router.navigate(['/']);
+      });
   }
 
 
