@@ -51,7 +51,8 @@ private isAuthenticated = false;
    }
 
 
- });
+
+ }, error =>{ alert(error)});
 
 }
 logout() {
