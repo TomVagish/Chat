@@ -3,12 +3,18 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 import { Subscription } from 'rxjs';
+import { Element } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService]
+  providers: [AuthService],
+  styles:[`
+  .progressbarHideShow{
+    visibility : hidden;
+  }
+  `]
 })
 export class LoginComponent implements OnInit,OnDestroy {
 
@@ -19,12 +25,16 @@ export class LoginComponent implements OnInit,OnDestroy {
 
   flagAlert = false;
   ErrorContent: string;
+  progressBarFlag = false;
+
+
 
   ngOnInit() {
 
    this.authStatusSub =  this.auth.getAuthStatusListener()
    .subscribe(authStatus =>{
     this.ErrorContent = authStatus;
+    this.progressBarFlag = false;
      this.showAlert();
    });
 
@@ -50,8 +60,7 @@ ngOnDestroy() {
 
 // login request send to AuthService with user data
   loginRequest(form: NgForm) {
-
-
+    this.progressBarFlag = true;
     const email = form.value.email;
     const password = form.value.password;
 

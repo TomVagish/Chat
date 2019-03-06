@@ -4,11 +4,12 @@
       </div>
 
 
+
 <br>
 
 <div class="container">
-
-      <ngb-alert id="alertMessage" *ngIf="ErrorContent" type="danger" [dismissible]="false" ><strong>{{ ErrorContent }}</strong></ngb-alert>
+    <br>
+      <ngb-progressbar [ngClass]="{progressbarHideShow:!progressBarFlag}" type="success" [value]="75" [striped]="true" [animated]="true"></ngb-progressbar>
 
     <br>
     <form (ngSubmit)="loginRequest(f)" #f=ngForm ngNativeValidate>
@@ -23,12 +24,22 @@
 
     <br>
     <br>
-    <div id="goToRegisterpage">
+    <div class="row">
+      <div class="col-md-5">
+          <div id="goToRegisterpage">
 
-        <button class="btn btn-outline-light" [routerLink]="['/register']" >New User ?<h5> Register here</h5></button>
+              <button class="btn btn-outline-light" [routerLink]="['/register']" >New User ?<h5> Register here</h5></button>
+
+            </div>
+      </div>
+      <div class="col-md-7">
+          <ngb-alert  id="alertMessage" *ngIf="ErrorContent" type="danger" [dismissible]="false" ><strong>{{ ErrorContent }}</strong></ngb-alert>
 
       </div>
+    </div>
 
+
+      <br>
       <br>
 
 
