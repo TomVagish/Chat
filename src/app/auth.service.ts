@@ -17,13 +17,13 @@ private authStatusListener = new Subject<string>();
     return  this.token;
   }
 
-  getAuthStatusListener(){
+  getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
 
 
   IsAuthenticated() {
-    return JSON.parse(localStorage.getItem("LoggedInUser"));
+    return JSON.parse(localStorage.getItem('LoggedInUser'));
   }
 
 
@@ -36,8 +36,8 @@ private authStatusListener = new Subject<string>();
       return this.http.post('http://localhost:3000/users/register', user)
       .subscribe(res =>{
         this.router.navigate(['/']);
-      },error =>{
-        this.authStatusListener.next('errorrrrr');
+      }, error => {
+        this.authStatusListener.next(error.error.message);
       });
   }
 
@@ -49,9 +49,9 @@ private authStatusListener = new Subject<string>();
    // get the token from response after successful login!
    const token = response.token;
    this.token = token;
-   if(token){
+   if (token) {
     this.isAuthenticated = true;
-    localStorage.setItem("LoggedInUser",JSON.stringify(this.isAuthenticated));
+    localStorage.setItem('LoggedInUser',JSON.stringify(this.isAuthenticated));
     this.router.navigate(['/chat']);
    }
 
@@ -61,8 +61,8 @@ private authStatusListener = new Subject<string>();
 
 
 logout() {
-  localStorage.removeItem("LoggedInUser");
-  this.router.navigate(["/"]);
+  localStorage.removeItem('LoggedInUser');
+  this.router.navigate(['/']);
 }
 
 }

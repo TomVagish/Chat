@@ -10,7 +10,6 @@
 <div class="container">
     <br>
       <ngb-progressbar [ngClass]="{progressbarHideShow:!progressBarFlag}" type="success" [value]="75" [striped]="true" [animated]="true"></ngb-progressbar>
-
     <br>
     <form (ngSubmit)="loginRequest(f)" #f=ngForm ngNativeValidate>
 
@@ -27,7 +26,6 @@
     <div class="row">
       <div class="col-md-5">
           <div id="goToRegisterpage">
-
               <button class="btn btn-outline-light" [routerLink]="['/register']" >New User ?<h5> Register here</h5></button>
 
             </div>

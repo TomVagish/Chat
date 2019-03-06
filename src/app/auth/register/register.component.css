@@ -82,7 +82,11 @@ Animation to login card! */
   }
 }
 
+#alertMessage{
+  text-align: center;
+  font-family: tahoma;
 
+ }
 
 .container-fluid{
   width: 20%;

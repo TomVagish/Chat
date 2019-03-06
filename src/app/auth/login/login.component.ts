@@ -10,7 +10,7 @@ import { Element } from '@angular/compiler';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [AuthService],
-  styles:[`
+  styles: [`
   .progressbarHideShow{
     visibility : hidden;
   }
@@ -47,9 +47,9 @@ export class LoginComponent implements OnInit,OnDestroy {
 
   showAlert(){
 
-    setTimeout(()=>{
+    setTimeout(() => {
 this.ErrorContent = null;
-    },5000)
+    }, 5000 );
   }
 
 
