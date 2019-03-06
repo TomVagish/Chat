@@ -8,7 +8,7 @@ export class AuthService {
 
 private token: string;
 private isAuthenticated = false;
-
+private authStatusListener = new Subject<string>();
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -17,6 +17,9 @@ private isAuthenticated = false;
     return  this.token;
   }
 
+  getAuthStatusListener(){
+    return this.authStatusListener.asObservable();
+  }
 
 
   IsAuthenticated() {
@@ -33,6 +36,8 @@ private isAuthenticated = false;
       return this.http.post('http://localhost:3000/users/register', user)
       .subscribe(res =>{
         this.router.navigate(['/']);
+      },error =>{
+        this.authStatusListener.next('errorrrrr');
       });
   }
 
@@ -50,11 +55,11 @@ private isAuthenticated = false;
     this.router.navigate(['/chat']);
    }
 
-
-
- }, error =>{ alert(error)});
+ }, error => { this.authStatusListener.next(error.error.message); } );
 
 }
+
+
 logout() {
   localStorage.removeItem("LoggedInUser");
   this.router.navigate(["/"]);

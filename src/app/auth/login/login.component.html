@@ -4,11 +4,12 @@
       </div>
 
 
-
+<br>
 
 <div class="container">
 
-    <br>
+      <ngb-alert id="alertMessage" *ngIf="ErrorContent" type="danger" [dismissible]="false" ><strong>{{ ErrorContent }}</strong></ngb-alert>
+
     <br>
     <form (ngSubmit)="loginRequest(f)" #f=ngForm ngNativeValidate>
 
@@ -29,6 +30,7 @@
       </div>
 
       <br>
+
 
   </div>
 
