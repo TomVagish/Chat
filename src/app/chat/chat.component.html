@@ -15,7 +15,7 @@
     <div class="row">
       <!-- choose a username here! -->
       <div class="col-md-3">
-        <ng-template [ngIf]="!usernameFlag">
+        <!-- <ng-template [ngIf]="!usernameFlag">
             <form   (ngSubmit)="saveUserName(f)" #f="ngForm" ngNativeValidate>
             <label>choose a username</label>
             <div class="input-group">
@@ -36,66 +36,73 @@
 
 
 
-        </ng-template>
+        </ng-template> -->
 
 
 
       </div>
 
-      <!-- choose a room  -->
-      <div class="col-md-4">
-
-        <ng-template [ngIf]="joinLeaveRoom">
-            <label>choose room</label>
-
-            <div class="input-group">
-
-                    <select  [(ngModel)]="room" class="form-control">
-                        <option value="Lobby">Lobby</option>
-                        <option value="Room 1">Room 1</option>
-                        <option value="Room 2">Room 2</option>
-                      </select>
-
-                    <span>
-                        <button placement="right" ngbTooltip="press to join to room" [disabled]="!usernameFlag" class="btn btn-info" (click)="join()">Join</button>
-                    </span>
-
-
-            </div>
-
-        </ng-template>
 
 
 
-
-
-      </div>
     </div>
 
 
 
     <div class="row">
+
       <!-- wellcome user -->
-      <div class="col-md-4">
+      <div class="col-md-6">
           <ng-template [ngIf]="usernameFlag">
               <h5 >wellcome <span id="heyUsernameTitle"> {{user}}</span></h5>
           </ng-template>
       </div>
 
-       <!-- join / leave rooms   -->
-      <div class="col-md-6">
-          <ng-template [ngIf]="!joinLeaveRoom">
-            <div class="input-group">
-                <p>You are available in : <strong>{{room}}</strong></p>
-                <span><button placement="right" ngbTooltip="press to leave this room" id="leaveRoomButton" class="btn btn-outline-dark" (click)="leave()">leave</button>
-                </span>
-            </div>
 
-            </ng-template>
-      </div>
     </div>
 
+    <!-- choose a room  -->
+    <div class="row">
 
+      <ng-template [ngIf]="joinLeaveRoom">
+
+          <div class="col-md-3">
+
+               <div class="input-group">
+
+                  <select  [(ngModel)]="room" class="form-control">
+                      <option  value="Lobby">Lobby</option>
+                      <option value="Room 1">Room 1</option>
+                      <option value="Room 2">Room 2</option>
+                    </select>
+
+                  <span>
+                      <button placement="right" ngbTooltip="press to join to room" [disabled]="!usernameFlag" class="btn btn-info" (click)="join()">Join</button>
+                  </span>
+
+
+          </div>
+
+          </div>
+
+
+
+      </ng-template>
+
+
+   <!-- join / leave rooms   -->
+  <div class="col-md-4">
+      <ng-template [ngIf]="!joinLeaveRoom">
+        <div class="input-group">
+            <p>You are available in : <strong>{{room}}</strong></p>
+            <span><button placement="right" ngbTooltip="press to leave this room" id="leaveRoomButton" class="btn btn-outline-dark" (click)="leave()">leave</button>
+            </span>
+        </div>
+
+        </ng-template>
+  </div>
+    </div>
+    <hr>
 
 
     <div class="row">
@@ -119,7 +126,13 @@
 
        <!-- div with all online users -->
       <div class="col-md-2">
-          <h5 id="onlineUsersHeader">online users</h5>
+
+            <img id="onlineUsersImage" src="https://png.pngtree.com/svg/20170407/9e8cbb439e.svg" >
+            <h5 id="onlineUsersHeader">online</h5>
+
+
+
+
           <div class="input-group" *ngFor="let item of onlineUsers">
 
             <table>

@@ -11,6 +11,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 const appRoutes: Routes = [
@@ -35,7 +36,7 @@ const appRoutes: Routes = [
     LoginComponent
   ],
   imports: [
-
+    NgSelectModule,
     NgbModule,
     HttpClientModule,
     BrowserModule,

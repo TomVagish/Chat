@@ -33,8 +33,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   joinLeaveRoom = true;
   flagSenduserTyping = false;
   user: string;
-  room: string;
+  room = 'Lobby';
   time: string;
+
 
   @ViewChild("mainPageMessages") myScrollContainer: any;
 
@@ -107,9 +108,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     // }) ;
   }
 
-  setUsernameFromDB() {
 
-  }
+
+
   ngOnDestroy() {
     // this.UsernameStatusSub.unsubscribe();
   }
@@ -165,6 +166,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   // new user joining to room
   join() {
+
     this.joinLeaveRoom = false;
     const time = this.getCurrentTime();
     this.chat.joinRoom({ user: this.user, room: this.room, date: time });

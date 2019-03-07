@@ -38,7 +38,7 @@ private usernameCurrentUser = new Subject<string>();
    // register request to server with user details!
    register(user: any) {
       return this.http.post('http://localhost:3000/users/register', user)
-      .subscribe(res =>{
+      .subscribe(res => {
         this.router.navigate(['/']);
       }, error => {
         this.authStatusListener.next(error.error.message);
