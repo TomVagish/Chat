@@ -9,21 +9,25 @@ export class AuthService {
 private token: string;
 private isAuthenticated = false;
 private authStatusListener = new Subject<string>();
+private usernameCurrentUser = new Subject<string>();
+
+
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
-    getToken() {
-    return  this.token;
+    getusernameCurrentUser() {
+    return  this.usernameCurrentUser.asObservable();
   }
 
   getAuthStatusListener() {
-    return this.authStatusListener.asObservable();
+    return  this.authStatusListener.asObservable();
   }
 
 
+
   IsAuthenticated() {
-    return JSON.parse(localStorage.getItem('LoggedInUser'));
+      return JSON.parse(localStorage.getItem('LoggedInUser'));
   }
 
 
@@ -44,12 +48,15 @@ private authStatusListener = new Subject<string>();
 
  // login request to server with user details!
  login(user: any) {
-   return this.http.post<{token: string}>('http://localhost:3000/users/login', user)
+   return this.http.post<{token: string, username: string}>('http://localhost:3000/users/login', user)
  .subscribe(response => {
+  this.usernameCurrentUser.next(response.username);
+  localStorage.setItem('CurrentUsername', response.username);
    // get the token from response after successful login!
    const token = response.token;
    this.token = token;
    if (token) {
+
     this.isAuthenticated = true;
     localStorage.setItem('LoggedInUser',JSON.stringify(this.isAuthenticated));
     this.router.navigate(['/chat']);
@@ -62,6 +69,7 @@ private authStatusListener = new Subject<string>();
 
 logout() {
   localStorage.removeItem('LoggedInUser');
+  localStorage.removeItem('CurrentUsername');
   this.router.navigate(['/']);
 }
 

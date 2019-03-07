@@ -8,9 +8,9 @@
 
 
 <div class="container">
-  <br>
+
   <ngb-progressbar [ngClass]="{progressbarHideShow:!progressBarFlag}" type="success" [value]="75" [striped]="true" [animated]="true"></ngb-progressbar>
-<br>
+  <br>
   <form (ngSubmit)="registerRequest(f)" #f=ngForm ngNativeValidate>
 
     <input class="form-control" type="email"  ngModel name="email" placeholder="Email" required>
@@ -25,7 +25,7 @@
 
 
   <br>
-  <br>
+
   <div class="row">
     <div class="col-md-5">
         <div  id="goToLoginpage">

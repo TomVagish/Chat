@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from "@angular/core";
 import { ChatService } from "../chat.service";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../auth.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-chat",
@@ -9,7 +10,7 @@ import { AuthService } from "../auth.service";
   styleUrls: ["./chat.component.css"],
   providers: [ChatService, AuthService]
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   messegeContent: string;
 
   allMessages: Array<{
@@ -30,25 +31,41 @@ export class ChatComponent implements OnInit {
   usernameFlag = false;
   userTypingflag = false;
   joinLeaveRoom = true;
-   flagSenduserTyping = false;
+  flagSenduserTyping = false;
   user: string;
   room: string;
   time: string;
 
-  @ViewChild('mainPageMessages')  myScrollContainer: any;
+  @ViewChild("mainPageMessages") myScrollContainer: any;
 
   constructor(private chat: ChatService, private auth: AuthService) {}
   showHideLogoutButton: boolean;
+  private UsernameStatusSub: Subscription;
 
   ngOnInit() {
+
+    const currentUsernameafterLogin = localStorage.getItem('CurrentUsername');
+    if(currentUsernameafterLogin)
+    {
+      this.user = currentUsernameafterLogin;
+      this.usernameFlag = true;
+    }
+
+
+    // this.UsernameStatusSub = this.auth
+    // .getusernameCurrentUser()
+    //   .subscribe(usernameStatus => {
+    //     console.log(usernameStatus);
+    //     this.user = usernameStatus;
+    //     this.setUsernameFromDB();
+
+    //   });
 
     if (this.auth.IsAuthenticated()) {
       this.showHideLogoutButton = true;
     } else {
       this.showHideLogoutButton = false;
     }
-
-
 
     // listen to incoming message when new user joining
     this.chat.getjoinRoom().subscribe(data => {
@@ -70,14 +87,12 @@ export class ChatComponent implements OnInit {
     this.chat.usertyping().subscribe(data => {
       this.usertypingArray = data.user;
       this.userTypingflag = true;
-      if(this.userTypingflag) {
+      if (this.userTypingflag) {
         setTimeout(() => {
           this.userTypingflag = false;
         }, 2000);
       }
-
     });
-
 
     // listen to stop typing user
     // this.chat.userstoptyping().
@@ -92,6 +107,13 @@ export class ChatComponent implements OnInit {
     // }) ;
   }
 
+  setUsernameFromDB() {
+
+  }
+  ngOnDestroy() {
+    // this.UsernameStatusSub.unsubscribe();
+  }
+
   saveUserName(form: NgForm) {
     this.user = form.value.user;
     this.usernameFlag = true;
@@ -99,7 +121,7 @@ export class ChatComponent implements OnInit {
 
   // a function that send a message in chat
   sendMessage(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       this.usertypingArray = null;
       const time = this.getCurrentTime();
       this.chat.sendMessage({
@@ -114,7 +136,6 @@ export class ChatComponent implements OnInit {
       // stop typing after send message this.chat.stoptyping({user: this.user});
 
       this.myScrollContainer.scrollToBottom(300);
-
     }
   }
 
@@ -131,17 +152,15 @@ export class ChatComponent implements OnInit {
 
   // user typing
   usertyping() {
-
-    if(!this.flagSenduserTyping) {
+    if (!this.flagSenduserTyping) {
       this.chat.typing({ user: this.user, room: this.room });
       setTimeout(() => {
         this.flagSenduserTyping = true;
-      },2000);
-    }else{
+      }, 2000);
+    } else {
       this.chat.typing({ user: this.user, room: this.room });
       this.flagSenduserTyping = false;
     }
-
   }
 
   // new user joining to room
@@ -157,11 +176,8 @@ export class ChatComponent implements OnInit {
     this.chat.leaveRoom({ user: this.user, room: this.room, date: time });
   }
 
-
   logout() {
     this.auth.logout();
     this.showHideLogoutButton = false;
-
   }
-
 }
