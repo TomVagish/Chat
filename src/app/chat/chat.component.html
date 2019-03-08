@@ -93,10 +93,10 @@
    <!-- join / leave rooms   -->
   <div class="col-md-4">
       <ng-template [ngIf]="!joinLeaveRoom">
-        <div class="input-group">
+        <div id="inRoomTitle" >
             <p>You are available in : <strong>{{room}}</strong></p>
-            <span><button placement="right" ngbTooltip="press to leave this room" id="leaveRoomButton" class="btn btn-outline-dark" (click)="leave()">leave</button>
-            </span>
+          <button placement="right" ngbTooltip="press to leave this room" id="leaveRoomButton" class="btn btn-outline-dark" (click)="leave()">leave</button>
+
         </div>
 
         </ng-template>
@@ -133,13 +133,13 @@
 
 
 
-          <div class="input-group" *ngFor="let item of onlineUsers">
+          <div class="input-group" *ngFor="let item of onlineUsers;let i= index">
 
             <table>
               <thead>
                 <tr>
                   <td id="dot"></td>
-                  <td><strong>{{item.user}}</strong></td>
+                  <td><strong>{{item[i].userName}}</strong></td>
                   <!-- <td >{{item.date}}</td> -->
                 </tr>
               </thead>

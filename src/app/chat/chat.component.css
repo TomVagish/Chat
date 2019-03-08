@@ -45,7 +45,7 @@ nav {
 
 
 /* Animation for user name & current room in chat */
-.input-group {
+#inRoomTitle {
 	-webkit-animation: scale-in-hor-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	        animation: scale-in-hor-left 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
@@ -222,6 +222,8 @@ select{
   margin-right: 10px;
 }
 
+
+
 #onlineUsersHeader{
   text-align: center;
   font-family: tahoma;
@@ -245,9 +247,7 @@ float: left;
   color: rgba(80, 36, 122, 0.884);
 }
 
-#leaveRoomButton{
-  margin-left:50%;
-}
+
 
 #userTypingHere{
   float: right;

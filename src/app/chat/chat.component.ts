@@ -13,20 +13,9 @@ import { Subscription } from "rxjs";
 export class ChatComponent implements OnInit, OnDestroy {
   messegeContent: string;
 
-  allMessages: Array<{
-    user: string;
-    message: string;
-    date: string;
-  }> = [];
-  onlineUsers: Array<{
-    user: string;
-    message: string;
-    date: string;
-  }> = [];
-  usertypingArray: Array<{
-    user: string;
-    message: string;
-  }>;
+  allMessages: Array<{ user: string; message: string; date: string; }> = [];
+  onlineUsers = [];
+  usertypingArray: Array<{ user: string; message: string; }>;
 
   usernameFlag = false;
   userTypingflag = false;
@@ -44,6 +33,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   private UsernameStatusSub: Subscription;
 
   ngOnInit() {
+
+    // this.auth.onlineUsers();
+    this.auth.getonlineUsers()
+    .subscribe(data =>{
+
+      this.onlineUsers.push(data);
+      console.log(this.onlineUsers);
+      console.log(data);
+    });
 
     const currentUsernameafterLogin = localStorage.getItem('CurrentUsername');
     if(currentUsernameafterLogin)
@@ -69,9 +67,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     // listen to incoming message when new user joining
-    this.chat.getjoinRoom().subscribe(data => {
-      this.onlineUsers.push(data);
-    });
+    // this.chat.getjoinRoom().subscribe(data => {
+    //   this.onlineUsers.push(data);
+    // });
 
     // listen to incoming message when user leaving
     this.chat.userLeave().subscribe(data => {
@@ -166,7 +164,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   // new user joining to room
   join() {
-
     this.joinLeaveRoom = false;
     const time = this.getCurrentTime();
     this.chat.joinRoom({ user: this.user, room: this.room, date: time });

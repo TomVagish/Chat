@@ -1,76 +1,93 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs/Subject';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subject } from "rxjs/Subject";
+import { Observable, of } from "rxjs";
 @Injectable()
 export class AuthService {
+  private token: string;
+  private isAuthenticated = false;
+  private authStatusListener = new Subject<string>();
+  private usernameCurrentUser = new Subject<string>();
 
-private token: string;
-private isAuthenticated = false;
-private authStatusListener = new Subject<string>();
-private usernameCurrentUser = new Subject<string>();
+  constructor(private http: HttpClient, private router: Router) {}
 
-
-
-  constructor(private http: HttpClient, private router: Router) {
-  }
-
-    getusernameCurrentUser() {
-    return  this.usernameCurrentUser.asObservable();
+  getusernameCurrentUser() {
+    return this.usernameCurrentUser.asObservable();
   }
 
   getAuthStatusListener() {
-    return  this.authStatusListener.asObservable();
+    return this.authStatusListener.asObservable();
   }
-
-
 
   IsAuthenticated() {
-      return JSON.parse(localStorage.getItem('LoggedInUser'));
+    return JSON.parse(localStorage.getItem("LoggedInUser"));
   }
 
-
-  setToken(setToken: string){
+  setToken(setToken: string) {
     this.token = setToken;
   }
 
-   // register request to server with user details!
-   register(user: any) {
-      return this.http.post('http://localhost:3000/users/register', user)
-      .subscribe(res => {
-        this.router.navigate(['/']);
-      }, error => {
-        this.authStatusListener.next(error.error.message);
-      });
+  // register request to server with user details!
+  register(user: any) {
+    return this.http
+      .post("http://localhost:3000/users/register", user)
+      .subscribe(
+        res => {
+          this.router.navigate(["/"]);
+        },
+        error => {
+          this.authStatusListener.next(error.error.message);
+        }
+      );
+  }
+
+  // login request to server with user details!
+  login(user: any) {
+    return this.http
+      .post<{ token: string; username: string }>(
+        "http://localhost:3000/users/login",
+        user
+      )
+      .subscribe(
+        response => {
+          this.usernameCurrentUser.next(response.username);
+          localStorage.setItem("CurrentUsername", response.username);
+          // get the token from response after successful login!
+          const token = response.token;
+          this.token = token;
+          if (token) {
+            this.isAuthenticated = true;
+            localStorage.setItem(
+              "LoggedInUser",
+              JSON.stringify(this.isAuthenticated)
+            );
+            this.router.navigate(["/chat"]);
+          }
+        },
+        error => {
+          this.authStatusListener.next(error.error.message);
+        }
+      );
+  }
+
+  logout() {
+    localStorage.removeItem("LoggedInUser");
+    localStorage.removeItem("CurrentUsername");
+    this.router.navigate(["/"]);
   }
 
 
- // login request to server with user details!
- login(user: any) {
-   return this.http.post<{token: string, username: string}>('http://localhost:3000/users/login', user)
- .subscribe(response => {
-  this.usernameCurrentUser.next(response.username);
-  localStorage.setItem('CurrentUsername', response.username);
-   // get the token from response after successful login!
-   const token = response.token;
-   this.token = token;
-   if (token) {
+  getonlineUsers(){
+    return this.http.get("http://localhost:3000/onlineUsers");
+  }
 
-    this.isAuthenticated = true;
-    localStorage.setItem('LoggedInUser',JSON.stringify(this.isAuthenticated));
-    this.router.navigate(['/chat']);
-   }
-
- }, error => { this.authStatusListener.next(error.error.message); } );
-
-}
-
-
-logout() {
-  localStorage.removeItem('LoggedInUser');
-  localStorage.removeItem('CurrentUsername');
-  this.router.navigate(['/']);
-}
-
+  onlineUsers() {
+    const onlineuser = { username: "john", room: "lobby" };
+    return this.http
+      .post("http://localhost:3000/onlineUsers", onlineuser)
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
 }

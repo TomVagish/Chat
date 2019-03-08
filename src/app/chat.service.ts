@@ -36,6 +36,7 @@ public stoptyping(data) {
 }
 
 
+
 // 3 functions that  recive data from server.
 public getMessages = () => {
   return Observable.create((observer) => {
@@ -76,5 +77,7 @@ public userstoptyping = () => {
       });
   });
 }
+
+
 
 }
