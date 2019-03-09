@@ -78,16 +78,19 @@ export class AuthService {
   }
 
 
-  getonlineUsers(){
-    return this.http.get("http://localhost:3000/onlineUsers");
+  getonlineUsers(room: any) {
+    return this.http.post('http://localhost:3000/onlineUsers/getOnlineUsers', room);
   }
 
-  onlineUsers() {
-    const onlineuser = { username: "john", room: "lobby" };
+  onlineUsers(onlineUser: any) {
     return this.http
-      .post("http://localhost:3000/onlineUsers", onlineuser)
+      .post('http://localhost:3000/onlineUsers', onlineUser)
       .subscribe(data => {
         console.log(data);
       });
   }
+
+    deleteFromOnlineUsers(username: any) {
+      return this.http.post('http://localhost:3000/onlineUsers/deleteUser', username);
+    }
 }

@@ -14,7 +14,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   messegeContent: string;
 
   allMessages: Array<{ user: string; message: string; date: string; }> = [];
-  onlineUsers = [];
+  onlineUsers:any;
   usertypingArray: Array<{ user: string; message: string; }>;
 
   usernameFlag = false;
@@ -34,14 +34,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // this.auth.onlineUsers();
-    this.auth.getonlineUsers()
-    .subscribe(data =>{
 
-      this.onlineUsers.push(data);
-      console.log(this.onlineUsers);
-      console.log(data);
-    });
 
     const currentUsernameafterLogin = localStorage.getItem('CurrentUsername');
     if(currentUsernameafterLogin)
@@ -108,6 +101,23 @@ export class ChatComponent implements OnInit, OnDestroy {
 
 
 
+  getOnlineUsers(room: any) {
+    this.auth.getonlineUsers(room)
+    .subscribe(data => {
+
+      this.onlineUsers = data;
+      console.log(this.onlineUsers);
+    });
+
+  }
+
+  deleteMeFromOnlineUsers(username: any) {
+    this.auth.deleteFromOnlineUsers(username)
+    .subscribe(data =>{
+      console.log(data);
+    });
+  }
+
 
   ngOnDestroy() {
     // this.UsernameStatusSub.unsubscribe();
@@ -134,7 +144,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       // stop typing after send message this.chat.stoptyping({user: this.user});
 
-      this.myScrollContainer.scrollToBottom(300);
+      // this.myScrollContainer.scrollToBottom(300);
     }
   }
 
@@ -167,13 +177,25 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.joinLeaveRoom = false;
     const time = this.getCurrentTime();
     this.chat.joinRoom({ user: this.user, room: this.room, date: time });
+    const onlineuser = { username: this.user, room: this.room };
+    this.auth.onlineUsers(onlineuser);
+
+    setTimeout(() =>{
+      this.getOnlineUsers({room: this.room});
+    }, 1500)
+
   }
   // user leaving room
   leave() {
     this.joinLeaveRoom = true;
     const time = this.getCurrentTime();
     this.chat.leaveRoom({ user: this.user, room: this.room, date: time });
+    const Meonlineuser = { username: this.user};
+    this.deleteMeFromOnlineUsers(Meonlineuser);
+    this.onlineUsers = null;
   }
+
+
 
   logout() {
     this.auth.logout();
