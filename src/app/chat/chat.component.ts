@@ -60,14 +60,21 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     // listen to incoming message when new user joining
-    // this.chat.getjoinRoom().subscribe(data => {
-    //   this.onlineUsers.push(data);
-    // });
+    this.chat.getjoinRoom().subscribe(data => {
+      setTimeout(()=>{
+        this.getOnlineUsers({room: this.room});
+
+      },1000);
+
+
+    });
 
     // listen to incoming message when user leaving
     this.chat.userLeave().subscribe(data => {
-      // this.onlineUsers.push(data);
-      console.log(this.onlineUsers);
+      setTimeout(()=>{
+        this.getOnlineUsers({room: this.room});
+
+      },1000);
     });
 
     // listen to incoming message in room
@@ -104,7 +111,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   getOnlineUsers(room: any) {
     this.auth.getonlineUsers(room)
     .subscribe(data => {
-
       this.onlineUsers = data;
       console.log(this.onlineUsers);
     });
@@ -113,7 +119,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   deleteMeFromOnlineUsers(username: any) {
     this.auth.deleteFromOnlineUsers(username)
-    .subscribe(data =>{
+    .subscribe(data => {
       console.log(data);
     });
   }
@@ -193,6 +199,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const Meonlineuser = { username: this.user};
     this.deleteMeFromOnlineUsers(Meonlineuser);
     this.onlineUsers = null;
+
   }
 
 
