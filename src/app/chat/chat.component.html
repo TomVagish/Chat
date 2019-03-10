@@ -109,9 +109,9 @@
 
       <!-- main chat with all message -->
       <div id="mainPageMessages" class="col-md-10">
-          <div id="messageInChat" *ngFor="let item of allMessages">
+          <div [ngClass]="{changeSideinchat: this.user==item.user}" id="messageInChat" *ngFor="let item of allMessages">
             <span>
-            <strong id="UsernameInChat">{{item.user}} : </strong>
+            <strong [ngClass]="{hideUsername: this.user==item.user}" id="UsernameInChat">{{item.user}} </strong>
             </span>
             <span>
                 <p id="timeStamp">{{item.date}}</p>

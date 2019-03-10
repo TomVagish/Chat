@@ -192,6 +192,7 @@ cursor: pointer;
 
 #mainHeaderInNavbar{
   color: whitesmoke;
+
 }
 
 
@@ -239,8 +240,8 @@ select{
 }
 
 #timeStamp{
-  font-weight: bold;
-  /* margin-left: 90%; */
+
+
   float: right;
   font-size: 15px;
 }

@@ -8,7 +8,19 @@ import { Subscription } from "rxjs";
   selector: "app-chat",
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.css"],
-  providers: [ChatService, AuthService]
+  providers: [ChatService, AuthService],
+  styles: [
+    `
+      .changeSideinchat {
+        text-align: right;
+
+      }
+    `, `
+    .hideUsername {
+      visibility: hidden;
+    }
+    `
+  ]
 })
 export class ChatComponent implements OnInit, OnDestroy {
   messegeContent: string;
