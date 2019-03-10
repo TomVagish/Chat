@@ -38,9 +38,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   time: string;
 
 
-  @ViewChild("mainPageMessages") myScrollContainer: any;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
-  constructor(private chat: ChatService, private auth: AuthService) {}
+  constructor(private chat: ChatService, private auth: AuthService) {
+
+  }
   showHideLogoutButton: boolean;
   private UsernameStatusSub: Subscription;
 
@@ -83,15 +85,16 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // listen to incoming message when user leaving
     this.chat.userLeave().subscribe(data => {
-      setTimeout(()=>{
+      setTimeout(() => {
         this.getOnlineUsers({room: this.room});
 
-      },1000);
+      }, 100);
     });
 
     // listen to incoming message in room
     this.chat.getMessages().subscribe(message => {
       this.allMessages.push(message);
+      this.scrollToBottom();
     });
 
     // listen to user typing
@@ -123,11 +126,26 @@ export class ChatComponent implements OnInit, OnDestroy {
   getOnlineUsers(room: any) {
     this.auth.getonlineUsers(room)
     .subscribe(data => {
-      this.onlineUsers = data;
-      console.log(this.onlineUsers);
+      setTimeout(() => {
+        this.onlineUsers = data;
+        console.log(this.onlineUsers);
+      }, 100);
+
     });
 
   }
+
+  scrollToBottom(): void {
+setTimeout(() => {
+  try {
+    this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+} catch (err) {
+  console.log(err);
+}
+}, 100);
+}
+
+
 
   deleteMeFromOnlineUsers(username: any) {
     this.auth.deleteFromOnlineUsers(username)
@@ -148,7 +166,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   // a function that send a message in chat
   sendMessage(event) {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       this.usertypingArray = null;
       const time = this.getCurrentTime();
       this.chat.sendMessage({
@@ -159,6 +177,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       });
       // this.chat.stoptyping({ user: this.user, room: this.room });
       this.messegeContent = null;
+      this.scrollToBottom();
+
 
       // stop typing after send message this.chat.stoptyping({user: this.user});
 
@@ -200,7 +220,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     setTimeout(() =>{
       this.getOnlineUsers({room: this.room});
-    }, 1500)
+    }, 1000);
 
   }
   // user leaving room

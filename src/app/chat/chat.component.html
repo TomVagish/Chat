@@ -108,7 +108,7 @@
     <div class="row">
 
       <!-- main chat with all message -->
-      <div id="mainPageMessages" class="col-md-10">
+      <div #scrollMe id="mainPageMessages" class="col-md-10">
           <div [ngClass]="{changeSideinchat: this.user==item.user}" id="messageInChat" *ngFor="let item of allMessages">
             <span>
             <strong [ngClass]="{hideUsername: this.user==item.user}" id="UsernameInChat">{{item.user}} </strong>
@@ -159,7 +159,6 @@
         <!-- if statment when user join to some room. input text for messages open! -->
           <ng-template [ngIf]="!joinLeaveRoom">
               <div>
-
                     <input
                       id="inputMessage"
                         maxlength="50"
