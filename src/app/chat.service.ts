@@ -13,18 +13,10 @@ export class ChatService {
 
       this.socket = io(this.url);
 
-this.socket.on('connect', function () {
-  console.log('Connected to the chat!');
-});
-this.socket.on('disconnect', function () {
-  alert('t');
-});
+
   }
 
 
-  UserDisconnect(){
-    alert('a');
-  }
 
 
 // 3 functions that  handling all request from client,and send it to server!
@@ -33,8 +25,6 @@ public sendMessage(data) {
 }
 
 public joinRoom(data) {
-  this.userName = data;
-  console.log(this.userName);
   this.socket.emit('join', data);
 }
 

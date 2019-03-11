@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   progressBarFlag = false;
 
   ngOnInit() {
-
     this.authStatusSub = this.auth
       .getAuthStatusListener()
       .subscribe(authStatus => {
@@ -39,7 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
 
     if (this.auth.IsAuthenticated()) {
-      this.router.navigate(['/chat']);
+      this.router.navigate(["/chat"]);
     }
   }
 

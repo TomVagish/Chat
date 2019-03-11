@@ -1,45 +1,78 @@
+<div id="mainHeaderApp" class="container-fluid">
+  <img
+    src="https://bootcamp.geekshubsacademy.com/wp-content/uploads/2018/06/mean-stack-1.png"
+    alt=""
+  />
+</div>
 
-  <div id="mainHeaderApp" class="container-fluid">
-      <img src="https://bootcamp.geekshubsacademy.com/wp-content/uploads/2018/06/mean-stack-1.png" alt="">
-      </div>
-
-
-<br>
-
+<br />
 
 <div class="container">
+  <ngb-progressbar
+    [ngClass]="{ progressbarHideShow: !progressBarFlag }"
+    type="success"
+    [value]="75"
+    [striped]="true"
+    [animated]="true"
+  ></ngb-progressbar>
+  <br />
+  <form (ngSubmit)="registerRequest(f)" #f="ngForm" ngNativeValidate>
+    <input
+      class="form-control"
+      type="email"
+      ngModel
+      name="email"
+      placeholder="Email"
+      required
+    />
+    <br />
+    <input
+      minlength="6"
+      class="form-control"
+      type="password"
+      ngModel
+      name="password"
+      placeholder="Password"
+      required
+    />
+    <br />
+    <input
+      maxlength="20"
+      class="form-control"
+      type="text"
+      ngModel
+      name="username"
+      placeholder="choose a Username"
+      required
+    />
 
-  <ngb-progressbar [ngClass]="{progressbarHideShow:!progressBarFlag}" type="success" [value]="75" [striped]="true" [animated]="true"></ngb-progressbar>
-  <br>
-  <form (ngSubmit)="registerRequest(f)" #f=ngForm ngNativeValidate>
-
-    <input class="form-control" type="email"  ngModel name="email" placeholder="Email" required>
-    <br>
-    <input minlength="6" class="form-control" type="password"  ngModel name="password" placeholder="Password" required>
-    <br>
-    <input maxlength="20" class="form-control" type="text"  ngModel name="username" placeholder="choose a Username" required>
-
-    <hr>
-    <button id="registerbtn" class="btn btn-outline-info" type="submit">Submit</button>
+    <hr />
+    <button id="registerbtn" class="btn btn-outline-info" type="submit">
+      Submit
+    </button>
   </form>
 
-
-  <br>
+  <br />
 
   <div class="row">
     <div class="col-md-5">
-        <div  id="goToLoginpage">
-            <button class="btn btn-outline-light" [routerLink]="['/']" >Already User ? <h5>Login</h5></button>
-          </div>
+      <div id="goToLoginpage">
+        <button class="btn btn-outline-light" [routerLink]="['/']">
+          Already User ?
+          <h5>Login</h5>
+        </button>
+      </div>
     </div>
     <div class="col-md-7">
-        <ngb-alert  id="alertMessage" *ngIf="ErrorContent" type="danger" [dismissible]="false" ><strong>{{ ErrorContent }}</strong></ngb-alert>
-
+      <ngb-alert
+        id="alertMessage"
+        *ngIf="ErrorContent"
+        type="danger"
+        [dismissible]="false"
+        ><strong>{{ ErrorContent }}</strong></ngb-alert
+      >
     </div>
   </div>
 
-
-    <br>
-
+  <br />
 </div>
-

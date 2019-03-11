@@ -9,15 +9,12 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 
 })
-export class AppComponent implements OnInit  {
+export class AppComponent {
   constructor(private auth: AuthService) {}
   title = 'chatClient';
 
 
-  ngOnInit() {
 
-
-  }
 
 
 

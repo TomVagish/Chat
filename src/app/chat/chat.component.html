@@ -1,21 +1,28 @@
-
-
 <nav class="navbar navbar-dark bg-dark">
-  <img id="imgInNavbar" src="https://bootcamp.geekshubsacademy.com/wp-content/uploads/2018/06/mean-stack-1.png" alt="">
+  <img
+    id="imgInNavbar"
+    src="https://bootcamp.geekshubsacademy.com/wp-content/uploads/2018/06/mean-stack-1.png"
+    alt=""
+  />
   <ng-template [ngIf]="showHideLogoutButton">
-    <p placement="left" ngbTooltip="click to log out" id="logOutButton" (click)="logout()"><strong>Log out</strong></p>
+    <p
+      placement="left"
+      ngbTooltip="click to log out"
+      id="logOutButton"
+      (click)="logout()"
+    >
+      <strong>Log out</strong>
+    </p>
   </ng-template>
 </nav>
 
-<hr>
+<hr />
 
-  <div id="mainPage" class="container">
-
-
-    <div class="row">
-      <!-- choose a username here! -->
-      <div class="col-md-3">
-        <!-- <ng-template [ngIf]="!usernameFlag">
+<div id="mainPage" class="container">
+  <div class="row">
+    <!-- choose a username here! -->
+    <div class="col-md-3">
+      <!-- <ng-template [ngIf]="!usernameFlag">
             <form   (ngSubmit)="saveUserName(f)" #f="ngForm" ngNativeValidate>
             <label>choose a username</label>
             <div class="input-group">
@@ -37,163 +44,150 @@
 
 
         </ng-template> -->
-
-
-
-      </div>
-
-
-
-
     </div>
-
-
-
-    <div class="row">
-
-      <!-- wellcome user -->
-      <div class="col-md-6">
-          <ng-template [ngIf]="usernameFlag">
-              <h5 >wellcome <span id="heyUsernameTitle"> {{user}}</span></h5>
-          </ng-template>
-      </div>
-
-
-    </div>
-
-    <!-- choose a room  -->
-    <div class="row">
-
-      <ng-template [ngIf]="joinLeaveRoom">
-
-          <div class="col-md-3">
-
-               <div class="input-group">
-
-                  <select  [(ngModel)]="room" class="form-control">
-                      <option  value="Lobby">Lobby</option>
-                      <option value="Room 1">Room 1</option>
-                      <option value="Room 2">Room 2</option>
-                    </select>
-
-                  <span>
-                      <button placement="right" ngbTooltip="press to join to room" [disabled]="!usernameFlag" class="btn btn-info" (click)="join()">Join</button>
-                  </span>
-
-
-          </div>
-
-          </div>
-
-
-
-      </ng-template>
-
-
-   <!-- join / leave rooms   -->
-  <div class="col-md-4">
-      <ng-template [ngIf]="!joinLeaveRoom">
-        <div id="inRoomTitle" >
-            <p>You are available in : <strong>{{room}}</strong></p>
-          <button placement="right" ngbTooltip="press to leave this room" id="leaveRoomButton" class="btn btn-outline-dark" (click)="leave()">leave</button>
-
-        </div>
-
-        </ng-template>
   </div>
-    </div>
-    <hr>
 
-
-    <div class="row">
-
-      <!-- main chat with all message -->
-      <div #scrollMe id="mainPageMessages" class="col-md-10">
-          <div [ngClass]="{changeSideinchat: this.user==item.user}" id="messageInChat" *ngFor="let item of allMessages">
-            <span>
-            <strong [ngClass]="{hideUsername: this.user==item.user}" id="UsernameInChat">{{item.user}} </strong>
-            </span>
-            <span>
-                <p id="timeStamp">{{item.date}}</p>
-            </span>
-              <p >{{item.message}}</p>
-
-              <hr>
-
-
-               </div>
-      </div>
-
-       <!-- div with all online users -->
-      <div class="col-md-2">
-          <ng-template [ngIf]="!joinLeaveRoom">
-            <img id="onlineUsersImage" src="https://png.pngtree.com/svg/20170407/9e8cbb439e.svg" >
-            <h5 id="onlineUsersHeader">online</h5>
-
-
-
-
-          <div class="input-group" *ngFor="let item of onlineUsers;let i= index">
-
-            <table>
-              <thead>
-                <tr>
-                  <td id="dot"></td>
-                  <td><strong>{{item.userName}}</strong></td>
-                  <!-- <td >{{item.date}}</td> -->
-                </tr>
-              </thead>
-            </table>
-
-          </div>
-          </ng-template>
-
-
-        </div>
-
-
-    </div>
-
-
-    <div class="row">
-      <div class="col-md-6">
-
-        <!-- if statment when user join to some room. input text for messages open! -->
-          <ng-template [ngIf]="!joinLeaveRoom">
-              <div>
-                    <input
-                      id="inputMessage"
-                        maxlength="50"
-                         (keydown)="sendMessage($event)"
-                          (keypress)="usertyping($event)"
-                           class="form-control"
-                            [(ngModel)]="messegeContent"
-                             name="messegeContent"
-                              type="text"
-                               placeholder="write message here.."
-                               >
-
-            </div>
+  <div class="row">
+    <!-- wellcome user -->
+    <div class="col-md-6">
+      <ng-template [ngIf]="usernameFlag">
+        <h5>
+          wellcome <span id="heyUsernameTitle"> {{ user }}</span>
+        </h5>
       </ng-template>
+    </div>
+  </div>
 
-      </div>
+  <!-- choose a room  -->
+  <div class="row">
+    <ng-template [ngIf]="joinLeaveRoom">
       <div class="col-md-3">
-          <ng-template [ngIf]="userTypingflag">
-              <div>
-                  <p id="userTypingHere"><strong>{{usertypingArray}} is typing..</strong></p>
-                </div>
-          </ng-template>
+        <div class="input-group">
+          <select [(ngModel)]="room" class="form-control">
+            <option value="Lobby">Lobby</option>
+            <option value="Room 1">Room 1</option>
+            <option value="Room 2">Room 2</option>
+          </select>
 
+          <span>
+            <button
+              placement="right"
+              ngbTooltip="press to join to room"
+              [disabled]="!usernameFlag"
+              class="btn btn-info"
+              (click)="join()"
+            >
+              Join
+            </button>
+          </span>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- join / leave rooms   -->
+    <div class="col-md-4">
+      <ng-template [ngIf]="!joinLeaveRoom">
+        <div id="inRoomTitle">
+          <p>
+            You are available in : <strong>{{ room }}</strong>
+          </p>
+          <button
+            placement="right"
+            ngbTooltip="press to leave this room"
+            id="leaveRoomButton"
+            class="btn btn-outline-dark"
+            (click)="leave()"
+          >
+            leave
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <hr />
+
+  <div class="row">
+    <!-- main chat with all message -->
+    <div #scrollMe id="mainPageMessages" class="col-md-10">
+      <div
+        [ngClass]="{ changeSideinchat: this.user == item.user }"
+        id="messageInChat"
+        *ngFor="let item of allMessages"
+      >
+        <span>
+          <strong
+            [ngClass]="{ hideUsername: this.user == item.user }"
+            id="UsernameInChat"
+            >{{ item.user }}
+          </strong>
+        </span>
+        <span>
+          <p id="timeStamp">{{ item.date }}</p>
+        </span>
+        <p>{{ item.message }}</p>
+
+        <hr />
       </div>
     </div>
 
+    <!-- div with all online users -->
+    <div class="col-md-2">
+      <ng-template [ngIf]="!joinLeaveRoom">
+        <img
+          id="onlineUsersImage"
+          src="https://png.pngtree.com/svg/20170407/9e8cbb439e.svg"
+        />
+        <h5 id="onlineUsersHeader">online</h5>
 
-
-
+        <div
+          class="input-group"
+          *ngFor="let item of onlineUsers; let i = index"
+        >
+          <table>
+            <thead>
+              <tr>
+                <td id="dot"></td>
+                <td>
+                  <strong>{{ item.userName }}</strong>
+                </td>
+                <!-- <td >{{item.date}}</td> -->
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </ng-template>
+    </div>
   </div>
 
-  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <!-- if statment when user join to some room. input text for messages open! -->
+      <ng-template [ngIf]="!joinLeaveRoom">
+        <div>
+          <input
+            id="inputMessage"
+            maxlength="50"
+            (keydown)="sendMessage($event)"
+            (keypress)="usertyping($event)"
+            class="form-control"
+            [(ngModel)]="messegeContent"
+            name="messegeContent"
+            type="text"
+            placeholder="write message here.."
+          />
+        </div>
+      </ng-template>
+    </div>
+    <div class="col-md-3">
+      <ng-template [ngIf]="userTypingflag">
+        <div>
+          <p id="userTypingHere">
+            <strong>{{ usertypingArray }} is typing..</strong>
+          </p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
 
-
-
-
+<hr />

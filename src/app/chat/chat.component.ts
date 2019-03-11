@@ -1,9 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+  HostListener
+} from "@angular/core";
 import { ChatService } from "../chat.service";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { Subscription } from "rxjs";
-import { leave } from '@angular/core/src/profile/wtf_impl';
+import { leave } from "@angular/core/src/profile/wtf_impl";
 
 @Component({
   selector: "app-chat",
@@ -14,65 +21,49 @@ import { leave } from '@angular/core/src/profile/wtf_impl';
     `
       .changeSideinchat {
         text-align: right;
-
       }
-    `, `
-    .hideUsername {
-      visibility: hidden;
-    }
+    `,
+    `
+      .hideUsername {
+        visibility: hidden;
+      }
     `
   ]
 })
 export class ChatComponent implements OnInit, OnDestroy {
   @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
     console.log("Processing beforeunload...");
-    const Meonlineuser = { username: this.user};
+    const Meonlineuser = { username: this.user };
     this.leave();
     event.returnValue = false;
-}
+  }
   messegeContent: string;
 
-  allMessages: Array<{ user: string; message: string; date: string; }> = [];
-  onlineUsers:any;
-  usertypingArray: Array<{ user: string; message: string; }>;
+  allMessages: Array<{ user: string; message: string; date: string }> = [];
+  onlineUsers: any;
+  usertypingArray: Array<{ user: string; message: string }>;
 
   usernameFlag = false;
   userTypingflag = false;
   joinLeaveRoom = true;
   flagSenduserTyping = false;
   user: string;
-  room = 'Lobby';
+  room = "Lobby";
   time: string;
+  interval;
 
+  @ViewChild("scrollMe") private myScrollContainer: ElementRef;
 
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-
-  constructor(private chat: ChatService, private auth: AuthService) {
-
-  }
+  constructor(private chat: ChatService, private auth: AuthService) {}
   showHideLogoutButton: boolean;
   private UsernameStatusSub: Subscription;
 
   ngOnInit() {
-
-
-
-    const currentUsernameafterLogin = localStorage.getItem('CurrentUsername');
-    if(currentUsernameafterLogin)
-    {
+    const currentUsernameafterLogin = localStorage.getItem("CurrentUsername");
+    if (currentUsernameafterLogin) {
       this.user = currentUsernameafterLogin;
       this.usernameFlag = true;
     }
-
-
-    // this.UsernameStatusSub = this.auth
-    // .getusernameCurrentUser()
-    //   .subscribe(usernameStatus => {
-    //     console.log(usernameStatus);
-    //     this.user = usernameStatus;
-    //     this.setUsernameFromDB();
-
-    //   });
 
     if (this.auth.IsAuthenticated()) {
       this.showHideLogoutButton = true;
@@ -82,19 +73,15 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // listen to incoming message when new user joining
     this.chat.getjoinRoom().subscribe(data => {
-      setTimeout(()=>{
-        this.getOnlineUsers({room: this.room});
-
-      },1000);
-
-
+      setTimeout(() => {
+        this.getOnlineUsers({ room: this.room });
+      }, 1000);
     });
 
     // listen to incoming message when user leaving
     this.chat.userLeave().subscribe(data => {
       setTimeout(() => {
-        this.getOnlineUsers({room: this.room});
-
+        this.getOnlineUsers({ room: this.room });
       }, 100);
     });
 
@@ -114,53 +101,29 @@ export class ChatComponent implements OnInit, OnDestroy {
         }, 2000);
       }
     });
-
-    // listen to stop typing user
-    // this.chat.userstoptyping().
-    // subscribe(data => {
-    //  if(data){
-    //    console.log(data);
-    //    console.log(this.userTypingflag);
-    //   this.userTypingflag = false;
-    //   console.log(this.userTypingflag);
-
-    //  }
-    // }) ;
   }
 
-
-
   getOnlineUsers(room: any) {
-    this.auth.getonlineUsers(room)
-    .subscribe(data => {
+    this.auth.getonlineUsers(room).subscribe(data => {
       setTimeout(() => {
         this.onlineUsers = data;
-        console.log(this.onlineUsers);
       }, 100);
-
     });
-
   }
 
   scrollToBottom(): void {
-setTimeout(() => {
-  try {
-    this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-} catch (err) {
-  console.log(err);
-}
-}, 100);
-}
-
-
-
-  deleteMeFromOnlineUsers(username: any) {
-    this.auth.deleteFromOnlineUsers(username)
-    .subscribe(data => {
-      console.log(data);
-    });
+    setTimeout(() => {
+      try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch (err) {
+        console.log(err);
+      }
+    }, 100);
   }
 
+  deleteMeFromOnlineUsers(username: any) {
+    this.auth.deleteFromOnlineUsers(username).subscribe(data => {});
+  }
 
   ngOnDestroy() {
     // this.UsernameStatusSub.unsubscribe();
@@ -173,7 +136,7 @@ setTimeout(() => {
 
   // a function that send a message in chat
   sendMessage(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       this.usertypingArray = null;
       const time = this.getCurrentTime();
       this.chat.sendMessage({
@@ -185,11 +148,6 @@ setTimeout(() => {
       // this.chat.stoptyping({ user: this.user, room: this.room });
       this.messegeContent = null;
       this.scrollToBottom();
-
-
-      // stop typing after send message this.chat.stoptyping({user: this.user});
-
-      // this.myScrollContainer.scrollToBottom(300);
     }
   }
 
@@ -226,31 +184,26 @@ setTimeout(() => {
     this.auth.onlineUsers(onlineuser);
 
     setTimeout(() => {
-      this.getOnlineUsers({room: this.room});
+      this.getOnlineUsers({ room: this.room });
     }, 1000);
-
   }
   // user leaving room
   leave() {
     this.joinLeaveRoom = true;
     const time = this.getCurrentTime();
     this.chat.leaveRoom({ user: this.user, room: this.room, date: time });
-    const Meonlineuser = { username: this.user};
+    const Meonlineuser = { username: this.user };
     this.deleteMeFromOnlineUsers(Meonlineuser);
 
-    setTimeout(() =>{
+    setTimeout(() => {
       this.onlineUsers = null;
-    },1000);
-
-
+    }, 1000);
+    clearInterval(this.interval);
   }
-
-
 
   logout() {
     this.leave();
     this.auth.logout();
     this.showHideLogoutButton = false;
-
   }
 }
