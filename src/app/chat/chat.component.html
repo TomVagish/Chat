@@ -126,7 +126,7 @@
 
        <!-- div with all online users -->
       <div class="col-md-2">
-
+          <ng-template [ngIf]="!joinLeaveRoom">
             <img id="onlineUsersImage" src="https://png.pngtree.com/svg/20170407/9e8cbb439e.svg" >
             <h5 id="onlineUsersHeader">online</h5>
 
@@ -146,6 +146,8 @@
             </table>
 
           </div>
+          </ng-template>
+
 
         </div>
 

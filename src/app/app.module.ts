@@ -12,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth.service';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 
 const appRoutes: Routes = [
@@ -37,7 +36,6 @@ const appRoutes: Routes = [
     LoginComponent
   ],
   imports: [
-    PickerModule,
     NgSelectModule,
     NgbModule,
     HttpClientModule,

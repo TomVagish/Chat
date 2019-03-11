@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener } from "@angular/core";
 import { ChatService } from "../chat.service";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { Subscription } from "rxjs";
+import { leave } from '@angular/core/src/profile/wtf_impl';
 
 @Component({
   selector: "app-chat",
@@ -23,6 +24,12 @@ import { Subscription } from "rxjs";
   ]
 })
 export class ChatComponent implements OnInit, OnDestroy {
+  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+    console.log("Processing beforeunload...");
+    const Meonlineuser = { username: this.user};
+    this.leave();
+    event.returnValue = false;
+}
   messegeContent: string;
 
   allMessages: Array<{ user: string; message: string; date: string; }> = [];
@@ -218,7 +225,7 @@ setTimeout(() => {
     const onlineuser = { username: this.user, room: this.room };
     this.auth.onlineUsers(onlineuser);
 
-    setTimeout(() =>{
+    setTimeout(() => {
       this.getOnlineUsers({room: this.room});
     }, 1000);
 
@@ -230,14 +237,20 @@ setTimeout(() => {
     this.chat.leaveRoom({ user: this.user, room: this.room, date: time });
     const Meonlineuser = { username: this.user};
     this.deleteMeFromOnlineUsers(Meonlineuser);
-    this.onlineUsers = null;
+
+    setTimeout(() =>{
+      this.onlineUsers = null;
+    },1000);
+
 
   }
 
 
 
   logout() {
+    this.leave();
     this.auth.logout();
     this.showHideLogoutButton = false;
+
   }
 }

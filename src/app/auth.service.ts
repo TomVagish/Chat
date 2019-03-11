@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
 import { Observable, of } from "rxjs";
+import { async } from '@angular/core/testing';
 @Injectable()
 export class AuthService {
   private token: string;
@@ -78,8 +79,8 @@ export class AuthService {
   }
 
 
-  getonlineUsers(room: any) {
-    return this.http.post('http://localhost:3000/onlineUsers/getOnlineUsers', room);
+  getonlineUsers(room: any)   {
+    return  this.http.post('http://localhost:3000/onlineUsers/getOnlineUsers', room);
   }
 
   onlineUsers(onlineUser: any) {
