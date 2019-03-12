@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const router = express.Router();
-const cors = require("cors");
+
 const bodyparser = require("body-parser");
 const checkAuth = require("../middleware/check-Token-Valid");
 // mongoose schema
@@ -19,7 +19,7 @@ const tow = 1000 * 60 * 60 * 2;
 const SECRET = "secretAngularChat";
 
 router.use(bodyparser());
-router.use(cors());
+
 
 router.use(
   session({
@@ -61,7 +61,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    
+
     const user = new User({
       userEmail: req.body.Email,
       userName: req.body.Username,
@@ -90,8 +90,8 @@ router.post("/login", (req, res, next) => {
       return res.status(401).json({ message: "User Not Exist !" });
     }
 
-  
-  
+
+
     // check if the passwords is equal after  MD5-hash !
     if (md5(req.body.Password) == user.userPassword) {
       // Create token when the user success to login!

@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const cors = require("cors");
+
 const bodyparser = require("body-parser");
 
 const onlineUsers = require("./models/onlineUser");
 
-router.use(cors());
+
 router.use(bodyparser());
 
 
@@ -36,9 +36,9 @@ router.post('/',(req,res,next) =>{
 
 
     const online = new onlineUsers({
-        
+
    userName:req.body.username,
-   room:req.body.room 
+   room:req.body.room
     });
 
     online
@@ -53,7 +53,7 @@ router.post('/',(req,res,next) =>{
         error: err
       });
     });
-   
+
 
 });
 
