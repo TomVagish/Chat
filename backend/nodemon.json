@@ -1,0 +1,7 @@
+{
+    "env": {
+        "MONGO_PASSWORD": "yewMZEZVsb7tsAan",
+        "JWT_KEY":"secret_t_v_angular-chat"
+
+    }
+}
