@@ -87,7 +87,6 @@ export class AuthService {
     return this.http
       .post('http://localhost:3000/onlineUsers', onlineUser)
       .subscribe(data => {
-        console.log(data);
       });
   }
 

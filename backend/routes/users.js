@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const router = express.Router();
-
+const cors = require("cors");
 const bodyparser = require("body-parser");
 const checkAuth = require("../middleware/check-Token-Valid");
 // mongoose schema
@@ -19,7 +19,7 @@ const tow = 1000 * 60 * 60 * 2;
 const SECRET = "secretAngularChat";
 
 router.use(bodyparser());
-
+router.use(cors());
 
 router.use(
   session({
