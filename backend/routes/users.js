@@ -61,7 +61,7 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    
+
     const user = new User({
       userEmail: req.body.Email,
       userName: req.body.Username,
@@ -85,13 +85,14 @@ router.post(
 
 // login route
 router.post("/login", (req, res, next) => {
+
   User.findOne({ userEmail: req.body.Email }).then(user => {
     if (!user) {
       return res.status(401).json({ message: "User Not Exist !" });
     }
 
-  
-  
+
+
     // check if the passwords is equal after  MD5-hash !
     if (md5(req.body.Password) == user.userPassword) {
       // Create token when the user success to login!
