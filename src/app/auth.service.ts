@@ -4,6 +4,10 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs/Subject";
 import { Observable, of } from "rxjs";
 import { async } from '@angular/core/testing';
+import { environment } from '../environments/environment';
+
+
+
 @Injectable()
 export class AuthService {
   private token: string;
@@ -32,7 +36,7 @@ export class AuthService {
   // register request to server with user details!
   register(user: any) {
     return this.http
-      .post("http://localhost:3000/users/register", user)
+      .post("users/register", user)
       .subscribe(
         res => {
           this.router.navigate(["/"]);
@@ -47,7 +51,7 @@ export class AuthService {
   login(user: any) {
     return this.http
       .post<{ token: string; username: string }>(
-        "http://localhost:3000/users/login",
+       "users/login",
         user
       )
       .subscribe(
@@ -80,17 +84,17 @@ export class AuthService {
 
 
   getonlineUsers(room: any)   {
-    return  this.http.post('http://localhost:3000/onlineUsers/getOnlineUsers', room);
+    return  this.http.post('onlineUsers/getOnlineUsers', room);
   }
 
   onlineUsers(onlineUser: any) {
     return this.http
-      .post('http://localhost:3000/onlineUsers', onlineUser)
+      .post('onlineUsers', onlineUser)
       .subscribe(data => {
       });
   }
 
     deleteFromOnlineUsers(username: any) {
-      return this.http.post('http://localhost:3000/onlineUsers/deleteUser', username);
+      return this.http.post('onlineUsers/deleteUser', username);
     }
 }

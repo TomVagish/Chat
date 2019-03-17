@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
+import { Title } from '@angular/platform-browser';
 
 
 
@@ -9,16 +10,13 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css']
 
 })
-export class AppComponent {
-  constructor(private auth: AuthService) {}
-  title = 'chatClient';
+export class AppComponent implements OnInit {
+  constructor(private auth: AuthService, private title: Title) {
+    this.title.setTitle( 'Chat' );
+  }
+  ngOnInit() {
 
-
-
-
-
-
-
+  }
 
 
 }

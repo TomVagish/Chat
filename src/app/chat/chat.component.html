@@ -22,28 +22,7 @@
   <div class="row">
     <!-- choose a username here! -->
     <div class="col-md-3">
-      <!-- <ng-template [ngIf]="!usernameFlag">
-            <form   (ngSubmit)="saveUserName(f)" #f="ngForm" ngNativeValidate>
-            <label>choose a username</label>
-            <div class="input-group">
 
-                  <input
-                  required
-                  ngnativevalidate
-                  id="chooseUsername"
-                    name="user"
-                     class="form-control"
-                      type="text"
-                      [(ngModel)]="user">
-                      <span>
-                          <button type="submit" class="btn btn-success" >Save</button>
-                      </span>
-                    </div>
-              </form>
-
-
-
-        </ng-template> -->
     </div>
   </div>
 
@@ -128,6 +107,7 @@
 
         <hr />
       </div>
+
     </div>
 
     <!-- div with all online users -->
@@ -159,9 +139,10 @@
     </div>
   </div>
 
+
   <div class="row">
+          <!-- if statment when user join to some room. input text for messages open! -->
     <div class="col-md-6">
-      <!-- if statment when user join to some room. input text for messages open! -->
       <ng-template [ngIf]="!joinLeaveRoom">
         <div>
           <input
@@ -178,14 +159,13 @@
         </div>
       </ng-template>
     </div>
+    <!-- user is typing -->
     <div class="col-md-3">
-      <ng-template [ngIf]="userTypingflag">
-        <div>
-          <p id="userTypingHere">
-            <strong>{{ usertypingArray }} is typing..</strong>
-          </p>
-        </div>
-      </ng-template>
+        <div  [ngClass]="{ userIsTypingClass: userTypingflag != true  }">
+              <p id="userTypingHere">
+                <strong>{{ usertypingArray }} is typing..</strong>
+              </p>
+          </div>
     </div>
   </div>
 </div>

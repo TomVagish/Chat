@@ -12,8 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {enableProdMode} from '@angular/core';
 
-
+enableProdMode();
 const appRoutes: Routes = [
   {
       path: '',

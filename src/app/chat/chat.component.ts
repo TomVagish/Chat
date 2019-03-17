@@ -10,7 +10,6 @@ import { ChatService } from "../chat.service";
 import { NgForm } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { Subscription } from "rxjs";
-import { leave } from "@angular/core/src/profile/wtf_impl";
 
 @Component({
   selector: "app-chat",
@@ -27,7 +26,12 @@ import { leave } from "@angular/core/src/profile/wtf_impl";
       .hideUsername {
         visibility: hidden;
       }
+    `,
     `
+    .userIsTypingClass {
+      visibility: hidden;
+
+    }`
   ]
 })
 export class ChatComponent implements OnInit, OnDestroy {
