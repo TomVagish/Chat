@@ -1,27 +1,26 @@
-# ChatClient
+# Chat
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
 
-## Development server
+the app running here
+## https://meanchat2019.herokuapp.com/
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## chat application developed with MEAN STACK technology!
+Angular - Frontend
 
-## Code scaffolding
+Node.js + Express -  Backend
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+MongoDb -  Database
 
-## Build
+## App features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- there is option to register or login (email and username must be unique for each user).
+- the app remember the user logged-in (local-storage).
+- in main page  user can see his username and choose a room to chat.
+- in right side user can see who is connected right now to this room,text message will open.
+- every user can see his own messages in right side of the chat , other messages will display in left side of the chat.
+- every user can see who is typing right now in his room
+- when user click 'leave' or do refresh/log-out/close the browser the chat will close his connection!
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
